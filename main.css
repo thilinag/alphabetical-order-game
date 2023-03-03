@@ -5,6 +5,7 @@ body {
 }
 
 * {
+  -webkit-user-select: none; /* Safari */
   user-select: none;
 }
 
@@ -24,7 +25,6 @@ ul {
 li {
   padding: 1rem;
   background: red;
-  user-select: none;
   cursor: move;
   border-radius: 1rem;
   border: 2px dashed transparent;
