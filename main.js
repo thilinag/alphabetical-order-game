@@ -382,6 +382,8 @@ const colors = [
 const $size = document.querySelector("#size");
 const $won = document.querySelector("#won");
 const $winningTime = document.querySelector("#winning-time");
+const $tsparticles = document.querySelector("#tsparticles");
+const $new = document.querySelector("#new");
 
 const $list = document.querySelector("ul");
 let answer;
@@ -423,6 +425,7 @@ const onDragStart = (e) => {
   e.dataTransfer.effectAllowed = "move";
   e.dataTransfer.setData("text/html", $this.innerHTML);
 };
+
 const onDragOver = (e) => {
   if (e.preventDefault) {
     e.preventDefault();
@@ -430,12 +433,15 @@ const onDragOver = (e) => {
   e.dataTransfer.dropEffect = "move";
   return false;
 };
+
 const onDragEnter = (e) => {
   e.target.classList.add("drag--hover");
 };
+
 const onDragLeave = (e) => {
   e.target.classList.remove("drag--hover");
 };
+
 const onDrop = (e) => {
   if (e.stopPropagation) e.stopPropagation();
   const $this = e.target;
@@ -465,29 +471,30 @@ const onDragEnd = (e) => {
 const initGame = () => {
   $seconds.innerHTML = "00";
   $minutes.innerHTML = "00";
-  document.querySelector("#tsparticles").innerHTML = "";
+  $tsparticles.innerHTML = "";
   const gameSize = Number($size.value) || 10;
   $list.innerHTML = "";
 
   const selectedWords = shuffle(words).slice(0, gameSize);
   answer = [...selectedWords].sort().join("");
+
   if (selectedWords.join("") === answer) {
-    console.log(selectedWords);
     initGame();
     return;
   }
+
   for (const word of selectedWords) {
-    const item = document.createElement("li");
-    item.setAttribute("draggable", true);
-    item.style.background = colors[Math.floor(Math.random() * colors.length)];
-    item.textContent = word;
-    item.addEventListener("dragstart", onDragStart, false);
-    item.addEventListener("dragenter", onDragEnter, false);
-    item.addEventListener("dragover", onDragOver, false);
-    item.addEventListener("dragleave", onDragLeave, false);
-    item.addEventListener("drop", onDrop, false);
-    item.addEventListener("dragend", onDragEnd, false);
-    $list.appendChild(item);
+    const $item = document.createElement("li");
+    $item.setAttribute("draggable", true);
+    $item.style.background = colors[Math.floor(Math.random() * colors.length)];
+    $item.textContent = word;
+    $item.addEventListener("dragstart", onDragStart, false);
+    $item.addEventListener("dragenter", onDragEnter, false);
+    $item.addEventListener("dragover", onDragOver, false);
+    $item.addEventListener("dragleave", onDragLeave, false);
+    $item.addEventListener("drop", onDrop, false);
+    $item.addEventListener("dragend", onDragEnd, false);
+    $list.appendChild($item);
   }
 
   if (clock) {
@@ -496,9 +503,7 @@ const initGame = () => {
   startClock();
 };
 
-initGame();
-
-document.querySelector("button").addEventListener("click", () => {
+$new.addEventListener("click", () => {
   $won.classList.remove("shown");
   initGame();
 });
@@ -506,3 +511,5 @@ document.querySelector("button").addEventListener("click", () => {
 $size.addEventListener("change", () => {
   initGame();
 });
+
+initGame();
