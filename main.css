@@ -84,7 +84,7 @@ li.drag--moving {
   z-index: 1;
   backdrop-filter: blur(2px);
   opacity: 0;
-  bottom: 100%;
+  transform: translateY(-100%);
   transition: all 0.3s ease-in-out;
   overflow: hidden;
   font-weight: bold;
@@ -93,7 +93,7 @@ li.drag--moving {
 
 #won.shown {
   opacity: 1;
-  bottom: 0;
+  transform: translateY(0);
 }
 
 button {
