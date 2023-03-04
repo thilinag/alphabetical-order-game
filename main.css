@@ -1,11 +1,29 @@
 :root {
   --font: "Shantell Sans", cursive;
+  --color: #111;
+  --bg: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color: #fff;
+    --bg: #111;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color: #111;
+    --bg: #fff;
+  }
 }
 
 body {
   margin: 1rem;
   font-family: var(--font);
   font-size: 2rem;
+  background: var(--bg);
+  color: var(--color);
 }
 
 * {
@@ -32,6 +50,7 @@ li {
   cursor: move;
   border-radius: 1rem;
   border: 2px dashed transparent;
+  color: #111;
 }
 
 li.drag--hover:not(.drag--moving) {
