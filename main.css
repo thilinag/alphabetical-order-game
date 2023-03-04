@@ -1,6 +1,10 @@
+:root {
+  --font: "Shantell Sans", cursive;
+}
+
 body {
   margin: 1rem;
-  font-family: "Patrick Hand", cursive;
+  font-family: var(--font);
   font-size: 2rem;
 }
 
@@ -57,6 +61,7 @@ li.drag--moving {
   bottom: 100%;
   transition: all 0.3s ease-in-out;
   overflow: hidden;
+  font-weight: bold;
 }
 
 #won.shown {
@@ -65,11 +70,12 @@ li.drag--moving {
 }
 
 button {
-  font-family: "Patrick Hand", cursive;
+  font-family: var(--font);
   font-size: 2rem;
   padding: 0.5rem 1rem;
   border-radius: 1rem;
   box-shadow: 2px 2px 0 2px;
+  font-weight: bold;
 }
 
 button:active {
@@ -81,7 +87,7 @@ select {
   padding: 0 1rem;
   border: 2px solid;
   border-radius: 1rem;
-  font-family: "Patrick Hand", cursive;
+  font-family: var(--font);
 }
 
 header {

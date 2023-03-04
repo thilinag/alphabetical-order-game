@@ -399,6 +399,23 @@ const startClock = () => {
   }, 1000);
 };
 
+const shuffle = (array) => {
+  let currentIndex = array.length,
+    randomIndex;
+
+  while (currentIndex != 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+
+  return array;
+};
+
 const onDragStart = (e) => {
   const $this = e.target;
   $this.classList.add("drag--moving");
@@ -451,11 +468,11 @@ const initGame = () => {
   document.querySelector("#tsparticles").innerHTML = "";
   const gameSize = Number($size.value) || 10;
   $list.innerHTML = "";
-  const selectedWords = Array.from(Array(gameSize)).map(
-    (_) => words[Math.floor(Math.random() * words.length)]
-  );
+
+  const selectedWords = shuffle(words).slice(0, gameSize);
   answer = [...selectedWords].sort().join("");
   if (selectedWords.join("") === answer) {
+    console.log(selectedWords);
     initGame();
     return;
   }
