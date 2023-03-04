@@ -15,11 +15,26 @@
   </head>
   <body>
     <div id="tsparticles"></div>
-    <p>Reorder words in alphabetical order&hellip;</p>
+    <header>
+      <p>
+        Reorder
+        <select id="size">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
+        words in alphabetical order&hellip;
+      </p>
+      <div class="clock">
+        <span id="minutes">00</span>:<span id="seconds">00</span>
+      </div>
+    </header>
     <ul></ul>
     <div id="won">
       <div>🥳</div>
-      you won!<br /><button>Play again</button>
+      <div>You won in <span id="winning-time"></span>!!</div>
+      <button>Play again</button>
     </div>
     <script
       id="DragDropTouch"

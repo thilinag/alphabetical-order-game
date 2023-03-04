@@ -378,12 +378,26 @@ const colors = [
   "#ffb7ce",
   "#ca9bf7",
 ];
-const GAME_SIZE = 10;
-const won = document.querySelector("#won");
 
-const list = document.querySelector("ul");
+const $size = document.querySelector("#size");
+const $won = document.querySelector("#won");
+const $winningTime = document.querySelector("#winning-time");
+
+const $list = document.querySelector("ul");
 let answer;
 let dragEl = null;
+let clock;
+
+const $seconds = document.getElementById("seconds");
+const $minutes = document.getElementById("minutes");
+
+const startClock = () => {
+  let sec = 0;
+  clock = setInterval(function () {
+    $seconds.innerHTML = `${++sec % 60}`.padStart(2, "0");
+    $minutes.innerHTML = `${parseInt(sec / 60, 10)}`.padStart(2, "0");
+  }, 1000);
+};
 
 const onDragStart = (e) => {
   const $this = e.target;
@@ -423,16 +437,20 @@ const onDragEnd = (e) => {
     item.classList.remove("drag--hover");
   });
 
-  if (list.textContent === answer) {
+  if ($list.textContent === answer) {
     tsParticles.load("tsparticles", options);
-    won.classList.add("shown");
+    clearInterval(clock);
+    $winningTime.textContent = `${$minutes.textContent}:${$seconds.textContent}`;
+    $won.classList.add("shown");
   }
 };
 
-const initGame = (gameSize = GAME_SIZE) => {
+const initGame = () => {
+  $seconds.innerHTML = "00";
+  $minutes.innerHTML = "00";
   document.querySelector("#tsparticles").innerHTML = "";
-
-  list.innerHTML = "";
+  const gameSize = Number($size.value) || 10;
+  $list.innerHTML = "";
   const selectedWords = Array.from(Array(gameSize)).map(
     (_) => words[Math.floor(Math.random() * words.length)]
   );
@@ -452,13 +470,22 @@ const initGame = (gameSize = GAME_SIZE) => {
     item.addEventListener("dragleave", onDragLeave, false);
     item.addEventListener("drop", onDrop, false);
     item.addEventListener("dragend", onDragEnd, false);
-    list.appendChild(item);
+    $list.appendChild(item);
   }
+
+  if (clock) {
+    clearInterval(clock);
+  }
+  startClock();
 };
 
 initGame();
 
 document.querySelector("button").addEventListener("click", () => {
-  won.classList.remove("shown");
+  $won.classList.remove("shown");
+  initGame();
+});
+
+$size.addEventListener("change", () => {
   initGame();
 });

@@ -43,7 +43,6 @@ li.drag--hover:not(.drag--moving) {
   align-items: center;
   justify-content: center;
   font-size: 3rem;
-  text-transform: uppercase;
   z-index: 1;
   backdrop-filter: blur(2px);
   opacity: 0;
@@ -67,4 +66,18 @@ button {
 
 button:active {
   box-shadow: -2px -2px 0 2px;
+}
+
+select {
+  font-size: 2rem;
+  padding: 0 1rem;
+  border: 2px solid;
+  border-radius: 1rem;
+  font-family: "Patrick Hand", cursive;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
 }
